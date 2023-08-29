@@ -64,11 +64,12 @@ st.header("Medication to patch")
 
 col1, col2 = st.columns(2)
 current = col1.selectbox("Current medication and method", options=[None, *opiod_analgesics_to_morphine_data.keys()], index=0, format_func = lambda x: x or "---")
-if current:
-    dose = col2.number_input("Daily dose (mg)")
+dose = col2.number_input("Daily dose (mg)")
 
 if current and dose:
     current_as_morphine = dose/opiod_analgesics_to_morphine_data[current]
     st.markdown(f"{dose}mg of {current} is equivalent to {current_as_morphine}mg of morphine.")
     st.markdown(f"**Fentanyl patch**: {morphine_to_patch(current_as_morphine, morphine_to_fent_data, 'fentanyl')}")
     st.markdown(f"**Buprenorphine patch**: {morphine_to_patch(current_as_morphine, morphine_to_bup_data, 'buprenorphine')}")
+else:
+    st.caption("Fill out the two fields above to see calculations.")
